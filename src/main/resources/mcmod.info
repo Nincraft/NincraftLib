@@ -1,0 +1,21 @@
+[
+{
+  "modid": "NinTiCModifiers",
+  "name": "Nin's TiC Modifiers",
+  "description": "Allow modifications of Tinkers' Construct modifiers.",
+  "version": "${mcversion}-${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://nincraft.com",
+  "updateUrl": "",
+  "authorList": [
+    "Nincodedo"
+  ],
+  "credits": "Nincodedo, Undead_Zeratul, Pahimar for his Let's Mod Reboot series",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
