@@ -31,7 +31,7 @@ configFile.withReader {
 apply plugin: 'forge'
 version = config.mod_version
 group = "com.nincraft.nincraftlib" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "nincraftlib"
+archivesBaseName = "NincraftLib"
 
 
 minecraft {
@@ -78,4 +78,13 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+task devJar(type: Jar, dependsOn: 'classes') {
+    from(sourceSets.main.output) {
+        include '**'
+    }
+
+    extension = 'jar'
+    classifier = 'dev'
 }
