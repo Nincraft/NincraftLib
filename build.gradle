@@ -40,10 +40,10 @@ minecraft {
     
     replaceIn "reference/Reference.java"
     replace "@MINECRAFT_VERSION@", "${config.minecraft_version}"
-    replace "@MOD_VERSION@", "${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
+    replace "@MOD_VERSION@", "${config.mod_version}+${System.getenv("BUILD_NUMBER") ?: "SNAPSHOT"}"
 }
 
-version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
+version = "${config.minecraft_version}-${config.mod_version}+${System.getenv("BUILD_NUMBER") ?: "SNAPSHOT"}"
 
 dependencies {
     // you may put jars on which you depend on in ./libs
