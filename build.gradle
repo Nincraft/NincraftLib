@@ -31,7 +31,7 @@ configFile.withReader {
 apply plugin: 'forge'
 version = config.mod_version
 group = "com.nincraft.nincraftlib" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "nincraftlib"
+archivesBaseName = "NincraftLib"
 
 
 minecraft {
@@ -40,10 +40,10 @@ minecraft {
     
     replaceIn "reference/Reference.java"
     replace "@MINECRAFT_VERSION@", "${config.minecraft_version}"
-    replace "@MOD_VERSION@", "${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
+    replace "@MOD_VERSION@", "${config.mod_version}+${System.getenv("BUILD_NUMBER") ?: "SNAPSHOT"}"
 }
 
-version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
+version = "${config.minecraft_version}-${config.mod_version}+${System.getenv("BUILD_NUMBER") ?: "SNAPSHOT"}"
 
 dependencies {
     // you may put jars on which you depend on in ./libs
@@ -78,4 +78,13 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+task devJar(type: Jar, dependsOn: 'classes') {
+    from(sourceSets.main.output) {
+        include '**'
+    }
+
+    extension = 'jar'
+    classifier = 'dev'
 }
