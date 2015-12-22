@@ -11,6 +11,7 @@ import com.google.common.collect.Sets;
 
 import mantle.utils.ItemMetaWrapper;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -20,8 +21,14 @@ import tconstruct.library.crafting.AlloyMix;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
+import tconstruct.library.tools.ToolMaterial;
+import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.items.Pattern;
 
 public class TConstructHandler {
+
+	private static final int INGOT_COST_MB = 144;
 
 	public static void setMeltingTemp(final String fluidName, final int newTemp) {
 		// If either the input or new temperature are null or invalid, back out.
@@ -39,6 +46,24 @@ public class TConstructHandler {
 					break;
 				}
 			}
+		}
+	}
+
+	public static void setToolPartCost(final Integer toolPartIndex, final Integer newCost) {
+		// If either the index or new cost are invalid, back out.
+		if (toolPartIndex < 0 || newCost < 1) {
+			return;
+		}
+
+		// Otherwise, set the new pattern cost (configured to represent ingots,
+		// patterns represent half-ingots).
+		Pattern.setPatternCost(toolPartIndex + 1, newCost * 2);
+
+		// Also find the appropriate melting recipes
+		// and adjust their amounts as well.
+		for (Entry<Integer, ToolMaterial> material : TConstructRegistry.toolMaterials.entrySet()) {
+			adjustCastingFluidAmounts(new ItemMetaWrapper(TinkerTools.patternOutputs[toolPartIndex], material.getKey()),
+					toolPartIndex, newCost);
 		}
 	}
 
@@ -183,5 +208,26 @@ public class TConstructHandler {
 		}
 
 		return keys;
+	}
+
+	private static void adjustCastingFluidAmounts(final ItemMetaWrapper toolPart, final Integer toolPartIndex,
+			final Integer newCost) {
+		FluidStack metal = Smeltery.getSmeltingList().get(toolPart);
+
+		// If we find a valid casting recipe,
+		// adjust its amounts.
+		if (metal != null) {
+			metal.amount = newCost * INGOT_COST_MB;
+			Smeltery.getSmeltingList().put(toolPart, metal.copy());
+
+			// Find all the casting recipes using this toolpart
+			// and adjust their required amounts.
+			CastingRecipe recipe = TConstructRegistry.getTableCasting().getCastingRecipe(metal,
+					new ItemStack(TinkerSmeltery.metalPattern, 1, toolPartIndex + 1));
+
+			if (recipe != null) {
+				recipe.castingMetal.amount = newCost * INGOT_COST_MB;
+			}
+		}
 	}
 }
