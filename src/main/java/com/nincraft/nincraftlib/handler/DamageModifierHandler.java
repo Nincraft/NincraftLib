@@ -1,12 +1,12 @@
 package com.nincraft.nincraftlib.handler;
 
+import com.nincraft.nincraftlib.api.item.IMoonDamage;
 import com.nincraft.nincraftlib.reference.Settings;
 import com.nincraft.nincraftlib.utility.MoonModifierDamageSource;
-import com.nincraft.nincraftlib.api.item.IMoonDamage;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DamageModifierHandler {
 

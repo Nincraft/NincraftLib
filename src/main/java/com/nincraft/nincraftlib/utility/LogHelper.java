@@ -4,7 +4,7 @@ import org.apache.logging.log4j.Level;
 
 import com.nincraft.nincraftlib.reference.Reference;
 
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class LogHelper {
 

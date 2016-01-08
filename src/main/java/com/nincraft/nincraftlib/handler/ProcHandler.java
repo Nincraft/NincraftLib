@@ -5,12 +5,12 @@ import com.nincraft.nincraftlib.api.item.IProcBuff;
 import com.nincraft.nincraftlib.reference.Names;
 import com.nincraft.nincraftlib.reference.Settings;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ProcHandler {
 

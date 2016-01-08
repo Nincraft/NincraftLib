@@ -4,10 +4,10 @@ package com.nincraft.nincraftlib.handler;
 
 import com.nincraft.nincraftlib.reference.Settings;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ThunderJoinHandler {
 
