@@ -1,3 +1,7 @@
+def MAVEN_URL = System.getenv("maven_url") ?: ""
+def MAVEN_USER = System.getenv("maven_user") ?: ""
+def MAVEN_PASS = System.getenv("maven_pass") ?: ""
+
 buildscript {
     repositories {
         mavenCentral()
@@ -127,10 +131,10 @@ uploadArchives {
 
         dependsOn 'build'
 
-        if (project.hasProperty('maven_pass'))
+        if (MAVEN_URL)
         {
-            repository(url: project.getProperty('maven_url')) {
-                authentication(userName: project.getProperty('maven_user'), password: project.getProperty('maven_pass'))
+            repository(url: MAVEN_URL) {
+                authentication(userName: MAVEN_USER, password: MAVEN_PASS)
             }
         }
         else
