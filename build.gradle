@@ -60,7 +60,7 @@ configFile.withReader {
 apply plugin: 'forge'
 
 // def versionInfo = getGitVersion()
-version = "${config.minecraft_version}-${config.mod_version}+${System.getenv("BUILD_NUMBER") ?: "SNAPSHOT"}" // "${versionInfo['IronChest.version']}"
+version = "${config.minecraft_version}-${config.mod_version}+${System.getenv("BUILD_NUMBER") ?: "SNAPSHOT"}" // "${versionInfo['NincraftLib.version']}"
 
 group = "com.nincraft" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "NincraftLib"
@@ -213,13 +213,12 @@ def getGitVersion()
     def rev = matcher[0][3]
     def bn = System.getenv("BUILD_NUMBER") ?: "SNAPSHOT"
 
-    out['IronChest.build.major.number'] = maj.toString()
-    out['IronChest.build.minor.number'] = min.toString()
-    out['IronChest.build.revision.number'] = rev.toString()
-    out['IronChest.build.githash'] = matcher[0][4].toString()
-    out['IronChest.build.number' ] = bn.toString()
-    out['IronChest.version' ] = "${maj}.${min}.${rev}.${bn}".toString()
+    out['NincraftLib.build.major.number'] = maj.toString()
+    out['NincraftLib.build.minor.number'] = min.toString()
+    out['NincraftLib.build.revision.number'] = rev.toString()
+    out['NincraftLib.build.githash'] = matcher[0][4].toString()
+    out['NincraftLib.build.number' ] = bn.toString()
+    out['NincraftLib.version' ] = "${maj}.${min}.${rev}.${bn}".toString()
 
     return out
 }
-
