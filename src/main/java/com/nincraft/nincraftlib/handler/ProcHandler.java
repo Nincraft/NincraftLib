@@ -11,6 +11,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameData;
 
 public class ProcHandler {
 
@@ -22,17 +23,16 @@ public class ProcHandler {
 				spawnParticle(player, 1.4, 1.3);
 				spawnParticle(player, 1.4, 0.3);
 				if (!player.worldObj.isRemote) {
-					player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, Names.Sounds.PROC_ATTACK, 1, 1);
-					player.addPotionEffect(new PotionEffect(5, 100, 9));
-					player.addPotionEffect(new PotionEffect(1, 100, 2));
+					player.addPotionEffect(new PotionEffect(GameData.getPotionRegistry().getObjectById(5), 9));
+					player.addPotionEffect(new PotionEffect(GameData.getPotionRegistry().getObjectById(1), 2));
 				}
 			}
 		}
 	}
 
 	private void spawnParticle(final EntityPlayerMP player, final double yOffset, final double velocity) {
-		NincraftLib.proxy.spawnParticle(Names.Particles.GREEN_SPARKLES, player.posX, player.posY + yOffset,
-				player.posZ, velocity, velocity, velocity);
+		NincraftLib.proxy.spawnParticle(Names.Particles.GREEN_SPARKLES, player.posX, player.posY + yOffset, player.posZ,
+				velocity, velocity, velocity);
 	}
 
 	@SubscribeEvent
@@ -44,8 +44,8 @@ public class ProcHandler {
 	}
 
 	private boolean isUsingProcSword(EntityPlayer player) {
-		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() != null)
-			return player.getCurrentEquippedItem().getItem() instanceof IProcBuff;
+		if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() != null)
+			return player.getHeldItemMainhand().getItem() instanceof IProcBuff;
 		return false;
 	}
 }

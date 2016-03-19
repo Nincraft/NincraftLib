@@ -15,14 +15,14 @@ public class DamageModifierHandler {
 		if (event.source.getEntity() instanceof EntityPlayerMP && event.source.damageType.equals("player")
 				&& Settings.Silly.moonPhasesOPPlzNerf) {
 			EntityPlayerMP player = (EntityPlayerMP) event.source.getEntity();
-			if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IMoonDamage
+			if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IMoonDamage
 					&& event.entityLiving.getHealth() > 0) {
 				event.setCanceled(true);
 				if (!player.worldObj.isRemote) {
 					event.entity.attackEntityFrom(new MoonModifierDamageSource("moonModifier", player),
 							getMoonDamage(player.worldObj.getCurrentMoonPhaseFactor(), event.ammount));
-					int itemDamage = player.getHeldItem().getItemDamage() + 1;
-					player.getHeldItem().getItem().setDamage(player.getHeldItem(), itemDamage);
+					int itemDamage = player.getHeldItemMainhand().getItemDamage() + 1;
+					player.getHeldItemMainhand().getItem().setDamage(player.getHeldItemMainhand(), itemDamage);
 				}
 			}
 		}
