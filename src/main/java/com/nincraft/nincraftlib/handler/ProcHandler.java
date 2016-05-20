@@ -17,9 +17,9 @@ public class ProcHandler {
 
 	@SubscribeEvent
 	public void procOnDeath(LivingDeathEvent event) {
-		if (Settings.Abilities.canProc && event.source.getEntity() instanceof EntityPlayerMP) {
-			EntityPlayerMP player = (EntityPlayerMP) event.source.getEntity();
-			if (!player.isEntityEqual(event.entity) && isUsingProcSword(player)) {
+		if (Settings.Abilities.canProc && event.getSource().getEntity() instanceof EntityPlayerMP) {
+			EntityPlayerMP player = (EntityPlayerMP) event.getSource().getEntity();
+			if (!player.isEntityEqual(event.getEntity()) && isUsingProcSword(player)) {
 				spawnParticle(player, 1.4, 1.3);
 				spawnParticle(player, 1.4, 0.3);
 				if (!player.worldObj.isRemote) {
@@ -37,8 +37,8 @@ public class ProcHandler {
 
 	@SubscribeEvent
 	public void jimmysSwordPvP(LivingAttackEvent event) {
-		if (event.source.getEntity() instanceof EntityPlayerMP && event.entity instanceof EntityPlayerMP
-				&& isUsingProcSword((EntityPlayerMP) event.source.getEntity()) && !Settings.Abilities.canJimmyPvP) {
+		if (event.getSource().getEntity() instanceof EntityPlayerMP && event.getEntity() instanceof EntityPlayerMP
+				&& isUsingProcSword((EntityPlayerMP) event.getSource().getEntity()) && !Settings.Abilities.canJimmyPvP) {
 			event.setCanceled(true);
 		}
 	}

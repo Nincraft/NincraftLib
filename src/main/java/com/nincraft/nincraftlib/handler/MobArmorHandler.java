@@ -12,7 +12,7 @@ public class MobArmorHandler {
 	
 	@SubscribeEvent
 	public void onLivingSpawn(LivingSpawnEvent event){
-		EntityLivingBase mob = event.entityLiving;
+		EntityLivingBase mob = event.getEntityLiving();
 		if(mob instanceof EntitySkeleton || mob instanceof EntityZombie){
 			
 		}
