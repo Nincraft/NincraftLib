@@ -1,28 +1,28 @@
 package com.nincraft.nincraftlib.handler;
 
+import com.nincraft.nincraftlib.api.item.IMoonDamage;
 import com.nincraft.nincraftlib.reference.Settings;
 import com.nincraft.nincraftlib.utility.MoonModifierDamageSource;
-import com.nincraft.nincraftlib.api.item.IMoonDamage;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DamageModifierHandler {
 
 	@SubscribeEvent
 	public void attackedEntity(LivingAttackEvent event) {
-		if (event.source.getEntity() instanceof EntityPlayerMP && event.source.damageType.equals("player")
+		if (event.getSource().getEntity() instanceof EntityPlayerMP && event.getSource().damageType.equals("player")
 				&& Settings.Silly.moonPhasesOPPlzNerf) {
-			EntityPlayerMP player = (EntityPlayerMP) event.source.getEntity();
-			if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IMoonDamage
-					&& event.entityLiving.getHealth() > 0) {
+			EntityPlayerMP player = (EntityPlayerMP) event.getSource().getEntity();
+			if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IMoonDamage
+					&& event.getEntityLiving().getHealth() > 0) {
 				event.setCanceled(true);
 				if (!player.worldObj.isRemote) {
-					event.entity.attackEntityFrom(new MoonModifierDamageSource("moonModifier", player),
-							getMoonDamage(player.worldObj.getCurrentMoonPhaseFactor(), event.ammount));
-					int itemDamage = player.getHeldItem().getItemDamage() + 1;
-					player.getHeldItem().getItem().setDamage(player.getHeldItem(), itemDamage);
+					event.getEntity().attackEntityFrom(new MoonModifierDamageSource("moonModifier", player),
+							getMoonDamage(player.worldObj.getCurrentMoonPhaseFactor(), event.getAmount()));
+					int itemDamage = player.getHeldItemMainhand().getItemDamage() + 1;
+					player.getHeldItemMainhand().getItem().setDamage(player.getHeldItemMainhand(), itemDamage);
 				}
 			}
 		}

@@ -1,13 +1,11 @@
 package com.nincraft.nincraftlib.handler;
 
-
-
 import com.nincraft.nincraftlib.reference.Settings;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ThunderJoinHandler {
 
@@ -22,10 +20,11 @@ public class ThunderJoinHandler {
 
 	@SubscribeEvent
 	public void onPlayerJoin(EntityJoinWorldEvent event) {
-		if (event.entity instanceof EntityPlayerMP) {
-			EntityPlayerMP player = (EntityPlayerMP) event.entity;
+		if (event.getEntity() instanceof EntityPlayerMP) {
+			EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
 			if (isPlayerThundertastic(player)) {
-				event.world.spawnEntityInWorld(new EntityLightningBolt(event.world, player.posX, 257, player.posZ));
+				event.getWorld().spawnEntityInWorld(
+						new EntityLightningBolt(event.getWorld(), player.posX, player.posY, player.posZ, false));
 			}
 		}
 	}
