@@ -5,47 +5,47 @@ import com.nincraft.nincraftlib.api.item.IProcBuff;
 import com.nincraft.nincraftlib.reference.Names;
 import com.nincraft.nincraftlib.reference.Settings;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameData;
 
 public class ProcHandler {
 
 	@SubscribeEvent
 	public void procOnDeath(LivingDeathEvent event) {
-		if (Settings.Abilities.canProc && event.source.getEntity() instanceof EntityPlayerMP) {
-			EntityPlayerMP player = (EntityPlayerMP) event.source.getEntity();
-			if (!player.isEntityEqual(event.entity) && isUsingProcSword(player)) {
+		if (Settings.Abilities.canProc && event.getSource().getEntity() instanceof EntityPlayerMP) {
+			EntityPlayerMP player = (EntityPlayerMP) event.getSource().getEntity();
+			if (!player.isEntityEqual(event.getEntity()) && isUsingProcSword(player)) {
 				spawnParticle(player, 1.4, 1.3);
 				spawnParticle(player, 1.4, 0.3);
 				if (!player.worldObj.isRemote) {
-					player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, Names.Sounds.PROC_ATTACK, 1, 1);
-					player.addPotionEffect(new PotionEffect(5, 100, 9));
-					player.addPotionEffect(new PotionEffect(1, 100, 2));
+					player.addPotionEffect(new PotionEffect(GameData.getPotionRegistry().getObjectById(5), 9));
+					player.addPotionEffect(new PotionEffect(GameData.getPotionRegistry().getObjectById(1), 2));
 				}
 			}
 		}
 	}
 
 	private void spawnParticle(final EntityPlayerMP player, final double yOffset, final double velocity) {
-		NincraftLib.proxy.spawnParticle(Names.Particles.GREEN_SPARKLES, player.posX, player.posY + yOffset,
-				player.posZ, velocity, velocity, velocity);
+		NincraftLib.proxy.spawnParticle(Names.Particles.GREEN_SPARKLES, player.posX, player.posY + yOffset, player.posZ,
+				velocity, velocity, velocity);
 	}
 
 	@SubscribeEvent
 	public void jimmysSwordPvP(LivingAttackEvent event) {
-		if (event.source.getEntity() instanceof EntityPlayerMP && event.entity instanceof EntityPlayerMP
-				&& isUsingProcSword((EntityPlayerMP) event.source.getEntity()) && !Settings.Abilities.canJimmyPvP) {
+		if (event.getSource().getEntity() instanceof EntityPlayerMP && event.getEntity() instanceof EntityPlayerMP
+				&& isUsingProcSword((EntityPlayerMP) event.getSource().getEntity()) && !Settings.Abilities.canJimmyPvP) {
 			event.setCanceled(true);
 		}
 	}
 
 	private boolean isUsingProcSword(EntityPlayer player) {
-		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() != null)
-			return player.getCurrentEquippedItem().getItem() instanceof IProcBuff;
+		if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() != null)
+			return player.getHeldItemMainhand().getItem() instanceof IProcBuff;
 		return false;
 	}
 }
