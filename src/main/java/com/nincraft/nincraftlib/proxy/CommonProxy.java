@@ -4,9 +4,7 @@ import com.nincraft.nincraftlib.handler.ConfigurationHandler;
 import com.nincraft.nincraftlib.handler.DamageModifierHandler;
 import com.nincraft.nincraftlib.handler.ProcHandler;
 import com.nincraft.nincraftlib.handler.ThunderJoinHandler;
-
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public abstract class CommonProxy implements IProxy {
 

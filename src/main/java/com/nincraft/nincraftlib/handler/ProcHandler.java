@@ -44,8 +44,6 @@ public class ProcHandler {
 	}
 
 	private boolean isUsingProcSword(EntityPlayer player) {
-		if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() != null)
-			return player.getHeldItemMainhand().getItem() instanceof IProcBuff;
-		return false;
+		return player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() != null && player.getHeldItemMainhand().getItem() instanceof IProcBuff;
 	}
 }

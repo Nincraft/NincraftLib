@@ -36,8 +36,8 @@ public class DamageModifierHandler {
 	 * linearly.
 	 **/
 	private float getMoonDamage(float phase, float damage) {
-		return (float) (damage * ((phase * 4) * ((Settings.Silly.maxMoonDamage - Settings.Silly.minMoonDamage) / 4))
-				+ Settings.Silly.minMoonDamage);
+		return damage * ((phase * 4) * ((Settings.Silly.maxMoonDamage - Settings.Silly.minMoonDamage) / 4))
+				+ Settings.Silly.minMoonDamage;
 	}
 
 }

@@ -1,8 +1,6 @@
 package com.nincraft.nincraftlib.proxy;
 
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class ClientProxy extends CommonProxy {

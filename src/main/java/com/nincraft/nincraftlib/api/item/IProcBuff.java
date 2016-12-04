@@ -4,6 +4,6 @@ import net.minecraft.item.ItemStack;
 
 public interface IProcBuff {
 
-	public boolean canProc(ItemStack stack);
+	boolean canProc(ItemStack stack);
 
 }
